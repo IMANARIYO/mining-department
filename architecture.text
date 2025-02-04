@@ -1,0 +1,51 @@
+minetech-mining/
+│── public/                  # Static assets (logos, icons, images)
+│── src/
+│   ├── app/                 # App Router (Next.js 13+)
+│   │   ├── layout.tsx        # Main layout (Navbar, Sidebar, etc.)
+│   │   ├── page.tsx          # Home page
+│   │   ├── dashboard/        # Dashboard pages
+│   │   │   ├── page.tsx      # Dashboard Home
+│   │   │   ├── settings.tsx  # User settings page
+│   │   │   ├── reports.tsx   # Reports & analytics
+│   │   ├── auth/             # Authentication pages
+│   │   │   ├── login.tsx     # Login page
+│   │   │   ├── register.tsx  # Registration page
+│   ├── components/           # Reusable UI components
+│   │   ├── Navbar.tsx
+│   │   ├── Sidebar.tsx
+│   │   ├── Button.tsx
+│   │   ├── Table.tsx
+│   ├── features/             # Feature-based modules
+│   │   ├── mining/           # Mining operations module
+│   │   │   ├── MiningDashboard.tsx
+│   │   │   ├── MiningReports.tsx
+│   │   │   ├── MiningAPI.ts  # API calls for mining data
+│   │   ├── security/         # Security module
+│   │   │   ├── SecurityDashboard.tsx
+│   │   │   ├── SecurityAPI.ts
+│   │   ├── geology/          # Geology module
+│   │   ├── health-safety/    # Health & Safety module
+│   │   ├── engineering/      # Engineering module
+│   │   ├── storage/          # Storage module
+│   │   ├── surveying/        # Surveying module
+│   ├── hooks/                # Custom React hooks
+│   │   ├── useAuth.ts        # Auth hook
+│   │   ├── useFetch.ts       # API fetching hook
+│   ├── layouts/              # Reusable layout components
+│   │   ├── AdminLayout.tsx   # Layout for admin dashboard
+│   │   ├── AuthLayout.tsx    # Layout for login/register pages
+│   ├── services/             # API services and integrations
+│   │   ├── apiClient.ts      # API client (Axios)
+│   │   ├── authService.ts    # Authentication service
+│   │   ├── miningService.ts  # Mining data service
+│   ├── store/                # Global state management (Zustand/Redux)
+│   │   ├── authStore.ts      # Authentication state
+│   │   ├── miningStore.ts    # Mining data state
+│   ├── utils/                # Utility/helper functions
+│   │   ├── formatDate.ts     # Date formatting function
+│   │   ├── validateInput.ts  # Form validation functions
+│── styles/                   # Global Tailwind CSS styles
+│── .env                      # Environment variables
+│── next.config.js            # Next.js configuration
+│── package.json              # Dependencies & scripts
