@@ -11,16 +11,22 @@ minetech-mining/
 │   │   ├── auth/             # Authentication pages
 │   │   │   ├── login.tsx     # Login page
 │   │   │   ├── register.tsx  # Registration page
-│   ├── components/           # Reusable UI components
-│   │   ├── Navbar.tsx
-│   │   ├── Sidebar.tsx
-│   │   ├── Button.tsx
-│   │   ├── Table.tsx
-│   ├── features/             # Feature-based modules
+│   ├── components/           # Reusable UI components (UI elements)
+│   │   ├── Navbar.tsx        # Navigation bar
+│   │   ├── Sidebar.tsx       # Sidebar navigation
+│   │   ├── Button.tsx        # Reusable button component
+│   │   ├── Table.tsx         # Reusable table component
+│   ├── constants/            # Constants used throughout the app
+│   │   ├── roles.ts          # Defines user roles (e.g., Admin, Engineer)
+│   │   ├── endpoints.ts      # Stores API endpoints
+│   ├── config/               # Configuration files for the app
+│   │   ├── appConfig.ts      # General app configuration
+│   │   ├── mapConfig.ts      # Leaflet.js settings for maps
+│   ├── features/             # Feature-based modules (Modular approach)
 │   │   ├── mining/           # Mining operations module
-│   │   │   ├── MiningDashboard.tsx
-│   │   │   ├── MiningReports.tsx
-│   │   │   ├── MiningAPI.ts  # API calls for mining data
+│   │   │   ├── MiningDashboard.tsx  # Main mining dashboard
+│   │   │   ├── MiningReports.tsx    # Mining reports UI
+│   │   │   ├── MiningAPI.ts         # API calls for mining data
 │   │   ├── security/         # Security module
 │   │   │   ├── SecurityDashboard.tsx
 │   │   │   ├── SecurityAPI.ts
@@ -30,18 +36,28 @@ minetech-mining/
 │   │   ├── storage/          # Storage module
 │   │   ├── surveying/        # Surveying module
 │   ├── hooks/                # Custom React hooks
-│   │   ├── useAuth.ts        # Auth hook
-│   │   ├── useFetch.ts       # API fetching hook
-│   ├── layouts/              # Reusable layout components
+│   │   ├── useAuth.ts        # Auth hook (checks login state)
+│   │   ├── useFetch.ts       # Fetching data hook (API requests)
+│   ├── layouts/              # Layout components (structure for pages)
 │   │   ├── AdminLayout.tsx   # Layout for admin dashboard
 │   │   ├── AuthLayout.tsx    # Layout for login/register pages
+│   ├── lib/                  # Reusable helper functions (utility functions)
+│   │   ├── auth.ts           # Authentication helpers
+│   │   ├── api.ts            # API request helper
+│   ├── middlewares/          # Middleware functions (API validation, auth)
+│   │   ├── authMiddleware.ts # Middleware for protected routes
+│   │   ├── errorHandler.ts   # Global error handler
 │   ├── services/             # API services and integrations
-│   │   ├── apiClient.ts      # API client (Axios)
-│   │   ├── authService.ts    # Authentication service
-│   │   ├── miningService.ts  # Mining data service
+│   │   ├── apiClient.ts      # Axios instance for API requests
+│   │   ├── authService.ts    # Authentication service functions
+│   │   ├── miningService.ts  # Mining data service functions
 │   ├── store/                # Global state management (Zustand/Redux)
-│   │   ├── authStore.ts      # Authentication state
-│   │   ├── miningStore.ts    # Mining data state
+│   │   ├── authStore.ts      # Manages authentication state
+│   │   ├── miningStore.ts    # Manages mining data state
+│   ├── types/                # TypeScript types & interfaces
+│   │   ├── user.ts           # User-related types
+│   │   ├── mining.ts         # Mining-related types
+│   │   ├── report.ts         # Reports-related types
 │   ├── utils/                # Utility/helper functions
 │   │   ├── formatDate.ts     # Date formatting function
 │   │   ├── validateInput.ts  # Form validation functions
@@ -49,3 +65,4 @@ minetech-mining/
 │── .env                      # Environment variables
 │── next.config.js            # Next.js configuration
 │── package.json              # Dependencies & scripts
+  

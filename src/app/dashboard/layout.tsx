@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { isSidebarOpen } = useSidebarStore();
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen fixed inset-0">
       <div className="sticky inset-0">
         <Sidebar />
       </div>
