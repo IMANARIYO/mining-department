@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -19,71 +18,62 @@ import {
   PopoverTrigger
 } from "@/components/ui/popover";
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js"
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit"
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js"
-  },
-  {
-    value: "remix",
-    label: "Remix"
-  },
-  {
-    value: "astro",
-    label: "Astro"
-  }
-];
 
-export function ComboboxDemo() {
+export function Combobox({
+  options,
+  placeholder,
+  onChange,
+  noOptionsMessage = "No options found.",
+  width = "200px" 
+}: ComboBoxProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
+  const handleSelect = (currentValue: string) => {
+    setValue(currentValue === value ? "" : currentValue);
+    setOpen(false);
+    onChange(currentValue); // Pass the selected value to parent component
+  };
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild className="border-4 border-gray-800 w-300">
         <Button
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between">
+          className={`w-[${width}] justify-between `} // Ensures fixed width & text doesn't overflow
+        >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
+            ? options.find((option) => option.value === value)?.label
+            : placeholder}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[200px] p-0 ">
         <Command>
-          <CommandInput placeholder="Search framework..." className="h-9" />
+          <CommandInput placeholder="Search..." className="h-9" />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
-            <CommandGroup>
-              {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}>
-                  {framework.label}
-                  <Check
-                    className={cn(
-                      "ml-auto",
-                      value === framework.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                </CommandItem>
-              ))}
-            </CommandGroup>
+            {options.length === 0 ? (
+              <CommandEmpty>{noOptionsMessage}</CommandEmpty>
+            ) : (
+              <CommandGroup>
+                {options.map((option) => (
+                  <CommandItem
+                    key={option.value}
+                    value={option.value}
+                    onSelect={(currentValue) => handleSelect(currentValue)}>
+                    {option.label}
+                    <Check
+                      className={cn(
+                        "ml-auto",
+                        value === option.value ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
           </CommandList>
         </Command>
       </PopoverContent>

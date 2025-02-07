@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode } from "react";
-import { Sidebar } from "@/components/Sidebar";
+import { Sidebar } from "@/components/MySidebar";
 import { Topbar } from "@/components/Topbar";
 import { useSidebarStore } from "@/store/sidebarStore";
 

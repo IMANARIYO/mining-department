@@ -1,6 +1,7 @@
 import React from "react";
-import { Payment, columns } from "@/components/table/columns";
+import { columns } from "@/components/table/columns/paymnetsColumns";
 import { DataTable } from "@/components/table/data-table";
+import { Payment } from "@/types/paymentTypes";
 
 type PaymentStatus = 'pending' | 'processing' | 'success' | 'failed';
 

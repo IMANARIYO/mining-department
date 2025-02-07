@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaChartBar, FaCog, FaHome, FaSignOutAlt } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { GiAutoRepair } from "react-icons/gi";
@@ -59,16 +60,20 @@ const sidebarItems = [
   }
 ];
 
-export const Sidebar = function () {
+export const Sidebar =  function () {
   const { isSidebarOpen, toggleSidebar } = useSidebarStore();
+    const [localSidebarOpen, setLocalSidebarOpen] = useState(true); 
   const pathname = usePathname(); // Get current active path
-
+ useEffect(() => {
+   // Sync local state with global state when sidebar is toggled
+   toggleSidebar();
+ }, [localSidebarOpen]);
   return (
     <motion.aside
       initial={{ width: 64 }}
       animate={{ width: isSidebarOpen ? 256 : 64 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="bg-[#F5F5F5] h-screen text-[#000000CC] sticky top-0 left-0 flex flex-col shadow-lg p-2">
+      className="bg-[#F5F5F5] h-screen text-[#000000CC] sticky top-0 left-0 flex flex-col shadow-lg p-2 ">
       {/* Header - Logo & Toggle Button */}
       <div className='flex items-center  p-2 h-20 border-b-2  ${isSidebarOpen ? "" : "justify-center" }'>
         <GiAutoRepair className="min-h-12 min-w-12" />

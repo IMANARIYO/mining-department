@@ -1,26 +1,25 @@
 "use client";
 import MessagesPanel from "./TopBarPanels/MessagesPanel";
+import MyDrawer from "./Drawer";
 import NotificationsPanel from "./TopBarPanels/NotificationsPanel";
 import ProfilePanel from "./TopBarPanels/ProfilePanel";
 import VisibleControlSidebar from "./TopBarPanels/VisibleControlSidebar";
 import { useState } from "react";
-import { FaTasks } from "react-icons/fa";
-import { FiBell, FiUser } from "react-icons/fi";
+import { useSidebar } from "@/components/ui/sidebar";
 import { useSidebarStore } from "@/store/sidebarStore";
 
-import { 
-  X, 
-  Sun, 
-  Settings, 
-  MessageSquare, 
+import logo from "@/public/images/logo.png";
+import {
+  X,
+  Sun,
+  Settings,
+  MessageSquare,
   User,
-   
-  Bell, 
-  Maximize, 
-  Menu, 
-  Minimize, 
-  Search, 
-  
+  Bell,
+  Maximize,
+  Menu,
+  Minimize,
+  Search
 } from "lucide-react";
 
 type PanelType =
@@ -29,52 +28,55 @@ type PanelType =
   | "profile"
   | "SidebarPanel"
   | null;
-export const Topbar = () => {
-      const {  toggleSidebar } = useSidebarStore();
-    const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-    const [activePanel, setActivePanel] = useState<PanelType>(null);
-    const [isControlOpen, setIsControlOpen] = useState<boolean>(false);
-    const toggleFullscreen = () => {
-      setIsFullscreen((prevState) => !prevState);
-      if (!isFullscreen) {
-        document.documentElement.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    };
-
-    const togglePanel = (panel: PanelType) => {
-      setActivePanel(activePanel === panel ? null : panel);
-    };
-
-    const toggleControl = () => {
-      setIsControlOpen(!isControlOpen);
-      setActivePanel(null);
-    };
+export function CustomTrigger() {
+  const { toggleSidebar } = useSidebar();
 
   return (
-    <div className="flex justify-between items-center pr-2  relative border-b-2 h-20">
+    <button onClick={toggleSidebar}>
+      <Menu />
+    </button>
+  );
+}
+interface TopbarProps {
+  className?: string;
+}
+export const Topbar = () => {
+  const { toggleSidebar } = useSidebarStore();
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [activePanel, setActivePanel] = useState<PanelType>(null);
+  const [isControlOpen, setIsControlOpen] = useState<boolean>(false);
+
+  const toggleFullscreen = () => {
+    setIsFullscreen((prevState) => !prevState);
+    if (!isFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
+  const togglePanel = (panel: PanelType) => {
+    setActivePanel(activePanel === panel ? null : panel);
+  };
+
+  const toggleControl = () => {
+    setIsControlOpen(!isControlOpen);
+    setActivePanel(null);
+  };
+
+  return (
+    <div className="flex justify-between items-center pr-2  sticky inset-0 border-b-2 h-20 z-[1000] bg-white shadow-md">
       <div className="flex-1 flex items-center justify-between space-x-4">
         <div className="flex items-center space-x-4 pl-2">
-          <button onClick={toggleSidebar}>
-            {" "}
-            <Menu />
-          </button>
+          <CustomTrigger />
 
-          <div className="flex items-center bg-gray-100 rounded-md p-2 space-x-2 text-customGreen">
-          well coming  manager message or name  manager</div>
-{/*   
-          <div className="flex items-center bg-gray-100 rounded-md p-2 space-x-2 text-customGreen">
-            <Search />
-            <input
-              type="text"
-              placeholder="Search"
-              className="bg-gray-100 text-customGreen focus:outline-none focus:ring-0"
-            />
+          {/* <div className="flex items-center bg-gray-100 rounded-md p-2 space-x-2 text-customGreen">
+            well coming manager message or name manager
           </div> */}
         </div>
 
         <div className="flex items-center space-x-4">
+          <MyDrawer />
           <button
             onClick={() => togglePanel("notifications")}
             className="relative">
@@ -83,7 +85,6 @@ export const Topbar = () => {
               3
             </span>
           </button>
-
           <button
             onClick={() => togglePanel("SidebarPanel")}
             className="hover:bg-gray-100 p-2 rounded-full transition-colors">
@@ -91,18 +92,16 @@ export const Topbar = () => {
               className={`w-5 h-5 ${isControlOpen ? "text-blue-500" : ""}`}
             />
           </button>
-
-          <button onClick={() => togglePanel("messages")} className="relative">
+          {/* <button onClick={() => togglePanel("messages")} className="relative">
             <MessageSquare className="h-8" />
             <span className="absolute top-[-2] right-0 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
               3
             </span>
-          </button>
-
+          </button> */}
+          <MessagesPanel />
           <button onClick={toggleFullscreen}>
             {isFullscreen ? <Minimize /> : <Maximize />}
           </button>
-
           <button onClick={() => togglePanel("profile")}>
             <User />
           </button>
@@ -111,7 +110,7 @@ export const Topbar = () => {
 
       {/* Right-Side Panels */}
       {activePanel && (
-        <div className="fixed top-20 right-0 w-80 h-full bg-white shadow-lg border-l border-gray-300 p-4 transition-transform transform duration-300">
+        <div className="fixed top-20 right-0 w-80 h-full  border-l  p-4 transition-transform transform duration-300 z-[20] bg-white">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-bold">
               {activePanel === "SidebarPanel"
@@ -135,9 +134,4 @@ export const Topbar = () => {
       )}
     </div>
   );
-}
-
-
-
-
-
+};
