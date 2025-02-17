@@ -29,15 +29,20 @@ type ChartConfig = {
     color: string;
   };
 };
+interface DataPoint {
+  [key: string]: string | number; //adding this for fixing
+}
 
 interface DynamicLineChartProps {
-  data: any[]; // Accepts any dataset
-  config: ChartConfig; // Configuration for each dataset key
-  xAxisKey: string; // Key for X-Axis
-  yAxisLabel: string; // Label for Y-Axis
-  title: string; // Chart title
-  description?: string; // Optional chart description
+  data: DataPoint[]; 
+  config: ChartConfig;
+  xAxisKey: string;
+  yAxisLabel: string;
+  title: string;
+  description?: string;
 }
+
+
 
 export function DynamicLineChart({
   data,

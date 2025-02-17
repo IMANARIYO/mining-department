@@ -37,7 +37,7 @@ export function Combobox({
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild className="border-4 border-gray-800 w-300">
+      <PopoverTrigger asChild className="border-4 ">
         <Button
           variant="outline"
           role="combobox"

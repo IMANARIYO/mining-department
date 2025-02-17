@@ -65,7 +65,7 @@ export const Topbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center pr-2  sticky inset-0 border-b-2 h-20 z-[1000] bg-white shadow-md">
+    <div className="flex justify-between items-center pr-2  sticky inset-0 border-b-2 h-20 z-[10] bg-white shadow-md">
       <div className="flex-1 flex items-center justify-between space-x-4">
         <div className="flex items-center space-x-4 pl-2">
           <CustomTrigger />

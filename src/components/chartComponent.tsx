@@ -1,56 +1,60 @@
-"use client";
-import { Bar, BarChart, CartesianGrid, Legend, XAxis, YAxis } from "recharts";
-
+import React from "react";
 import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent
-} from "@/components/ui/chart";
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer
+} from "recharts";
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 }
-];
+const TunnelPerformanceChart = () => {
+  const data = [
+    {
+      tunnel: "Tunnel 21",
+      expected: 1000,
+      actual: 850
+    },
+    {
+      tunnel: "Tunnel 22",
+      expected: 1200,
+      actual: 1100
+    },
+    {
+      tunnel: "Tunnel 23",
+      expected: 900,
+      actual: 950
+    },
+    {
+      tunnel: "Tunnel 24",
+      expected: 1500,
+      actual: 1350
+    },
+    {
+      tunnel: "Tunnel 25",
+      expected: 1100,
+      actual: 1050
+    }
+  ];
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "#2563eb" // Blue
-  },
-  mobile: {
-    label: "Mobile",
-    color: "#60a5fa" // Light Blue
-  }
-} satisfies ChartConfig;
 
-export function ChartComponent() {
   return (
-    <ChartContainer
-      config={chartConfig}
-      className="min-h-[8rem] w-full bg-slate-200 pt-8 z-0">
-      <BarChart data={chartData}>
-        <CartesianGrid vertical={false} />
-        <XAxis
-        className="z-3 bg-cyan-950"
-          dataKey="month"
-          tickLine={false}
-          tickMargin={5}
-          axisLine={false}
-          tickFormatter={(value) => value.slice(0, 3)}
-        />
-        <YAxis tickLine={false} tickMargin={5} axisLine={true} />
-        <ChartTooltip content={<ChartTooltipContent />} />
-        {/* Added Legend */}
+    <ResponsiveContainer width="100%" height={400}>
+      <BarChart
+        data={data}
+        margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="tunnel" />
+        <YAxis label={{ value: "Tons", angle: -90, position: "insideLeft" }} />
+        <Tooltip />
         <Legend />
-        {/* Fixed Color Usage */}
-        <Bar dataKey="desktop" fill="#2563eb" radius={4} name="Desktop" />
-        <Bar dataKey="mobile" fill="#60a5fa" radius={4} name="Mobile" />
+        <Bar dataKey="expected" fill="#8884d8" name="Expected Output" />
+        <Bar dataKey="actual" fill="#82ca9d" name="Actual Output" />
       </BarChart>
-    </ChartContainer>
+    </ResponsiveContainer>
   );
-}
+};
+
+export default TunnelPerformanceChart;

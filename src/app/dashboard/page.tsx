@@ -7,7 +7,7 @@ import { DynamicLineChart } from "@/components/DynamicLineChart";
 import { DynamicPieChartComponent } from "@/components/DynamicPieChart";
 import { DynamicRisksMilestoneCriticalAlertCard } from "@/components/DynamicRisksMilestoneCriticalAlertCard";
 import { SummaryCard } from "@/components/SummaryCard";
-import { ChartComponent } from "@/components/chartComponent";
+
 import { Calendar } from "@/components/ui/calendar";
 
 // import MyDrawer from "@/components/Drawer";
@@ -19,6 +19,8 @@ import {
   TrendingUp
 } from "lucide-react";
 import PlannedVsActualMiningData from "@/components/PlannedVsActualChartLine";
+import TunnelPerformanceChart from "@/components/chartComponent";
+import PerformanceDashboardCards from "@/components/PerformanceDashboardCards";
 
 const salesData = [
   { quarter: "Q1", productA: 500, productB: 400, productC: 350 },
@@ -123,13 +125,12 @@ function Page() {
           <Combobox
             options={mappedOptions}
             onChange={handleTunnelChange}
-            placeholder="Select a tunnel..."
+            placeholder="Select a tunnel"
             noOptionsMessage="No tunnels available." // Custom message
             width="250px"
           />
         </div>
       </div>
-
       {/* First Layer: 4 Info Cards */}
       <div className="p-2 bg-gray-100  grid grid-cols-2 md:grid-cols-4 gap-4">
         <SummaryCard
@@ -158,7 +159,27 @@ function Page() {
           icon={<Activity className="w-6 h-6 text-yellow-500" />}
         />
       </div>
-      <PlannedVsActualMiningData />
+      <div className="flex flex-col items-center">
+        <DynamicPieChartComponent
+          title="Mineral Quality Distribution"
+          description="Quality of mined minerals for Q1 - 2024"
+          data={myChartData}
+          innerRadius={50}
+          outerRadius={90}
+          config={{}} // Add specific configurations for the chart if needed
+          className="w-full"
+        />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <PlannedVsActualMiningData />
+        {/* Mineral Quality Distribution Pie Chart */}
+        <div className="flex flex-col items-center">
+          <h2 className="text-lg font-semibold mb-2">
+            daily Progress of tunnnels
+          </h2>
+          <TunnelPerformanceChart />
+        </div>
+      </div>
       {/* Second Layer: 2 Large Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
         <div className="bg-white p-4 rounded-lg shadow-md">
@@ -187,7 +208,6 @@ function Page() {
           />
         </div>
       </div>
-
       {/* Third Layer: 3 Standard Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Risk Assessment Card */}
@@ -209,7 +229,11 @@ function Page() {
         />
       </div>
       {/* Fourth Layer: 3 Cards (60% Height of Above) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <h1>the equipment impact</h1>
+      <PerformanceDashboardCards />
+      </div>
+      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-4 rounded-lg shadow-md h-24">
           maintnantence ahours
         </div>
@@ -219,51 +243,30 @@ function Page() {
         <div className="bg-white p-4 rounded-lg shadow-md h-24">
           break down freaquence
         </div>
-      </div>
-
+      </div> */}
       {/* Sixth Layer: Weekly Bar Chart */}
-      <div className="bg-white p-4 rounded-lg shadow-md grid gap-6 md:grid-cols-2">
-        {/* Weekly Progress Bar Chart */}
-        <div className="flex flex-col items-center">
-          <h2 className="text-lg font-semibold mb-2">Weekly Progress</h2>
-          <ChartComponent />
-        </div>
-
-        {/* Mineral Quality Distribution Pie Chart */}
-        <div className="flex flex-col items-center">
-          <DynamicPieChartComponent
-            title="Mineral Quality Distribution"
-            description="Quality of mined minerals for Q1 - 2024"
-            data={myChartData}
-            innerRadius={50}
-            outerRadius={90}
-            config={{}} // Add specific configurations for the chart if needed
-            className="w-full"
-          />
-        </div>
-      </div>
-
+ 
       {/* Seventh Layer: Data Table */}
       <div className="bg-white p-4 rounded-lg shadow-md">
         <h2 className="text-lg font-semibold mb-2">Summary Table</h2>
         <table className="w-full border border-gray-300">
           <thead>
             <tr className="bg-gray-200">
-              <th className="border p-2">Tunnel</th>
-              <th className="border p-2">Production</th>
-              <th className="border p-2">Shifts</th>
-              <th className="border p-2">Efficiency</th>
+              <th className="border-1 border-gray-200 p-2">Tunnel</th>
+              <th className="border-1 border-gray-200 p-2">Production</th>
+              <th className="border-1 border-gray-200 p-2">Shifts</th>
+              <th className="border-1 border-gray-200 p-2">Efficiency</th>
             </tr>
           </thead>
           <tbody>
             {tunnelOptions.slice(0, 5).map((tunnel) => (
               <tr key={tunnel.tunnelId}>
-                <td className="border p-2">{tunnel.tunnelName}</td>
-                <td className="border p-2">
+                <td className="border-1 border-gray-200 p-2">{tunnel.tunnelName}</td>
+                <td className="border-1 border-gray-200 p-2">
                   {Math.floor(Math.random() * 1000)} tons
                 </td>
-                <td className="border p-2">{Math.floor(Math.random() * 50)}</td>
-                <td className="border p-2">
+                <td className="border-1 border-gray-200 p-2">{Math.floor(Math.random() * 50)}</td>
+                <td className="border-1 border-gray-200 p-2">
                   {Math.floor(Math.random() * 100)}%
                 </td>
               </tr>

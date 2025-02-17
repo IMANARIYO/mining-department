@@ -41,17 +41,23 @@ export default function PlannedVsActualMiningData() {
   return (
     <Card className="mix-blend-normal h-full">
       <CardHeader>
-        <CardTitle>Planned vs. Actual Mining Data</CardTitle>
+        <CardTitle>Planned vs. Actual Mining Data of all tunnels</CardTitle>
       </CardHeader>
 
       <CardContent>
         {/* Line Chart */}
-        <div className="h-[500px]">
+        <div className="h-[300px]">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={miningData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" label={{ value: "Days", position: "insideBottom", offset: -2 }} />
-              <YAxis label={{ value: "Tons", angle: -90, position: "insideLeft" }} domain={[0, "auto"]} />
+              <XAxis
+                dataKey="day"
+                label={{ value: "Days", position: "insideBottom", offset: -2 }}
+              />
+              <YAxis
+                label={{ value: "Tons", angle: -90, position: "insideLeft" }}
+                domain={[0, "auto"]}
+              />
               <Tooltip />
               <Legend />
 
