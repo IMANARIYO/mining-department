@@ -1,4 +1,6 @@
-import React from "react";
+"use client"
+
+import React, { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   Select,
@@ -11,33 +13,38 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 
-
 import { Droplet, Wind, Sun } from "lucide-react";
+import CustomSelect from "@/components/CustomSelect";
 
 const MineOpsDashboard = () => {
-    const productionData = [
-      {
-        title: "Overall Production",
-        data: [
-          { label: "Total Ore Mined", value: "245,678 tons" },
-          {
-            label: "+12.5% vs last period",
-            value: "Updated 5m ago",
-            textColor: "text-green-600"
-          }
-        ]
-      },
-      {
-        title: "Safety Incidents",
-        data: [
-          { label: "LTI", value: "2", textColor: "text-red-600" },
-          { label: "Recordable", value: "5", textColor: "text-yellow-600" },
-          { label: "Near Miss", value: "12", textColor: "text-blue-600" }
-        ]
-      }
-    ];
+  // State for selected values
+  const [selectedDays, setSelectedDays] = useState<string | null>(null);
+  const [selectedEquipment, setSelectedEquipment] = useState<string | null>(
+    null
+  );
+  const productionData = [
+    {
+      title: "Overall Production",
+      data: [
+        { label: "Total Ore Mined", value: "245,678 tons" },
+        {
+          label: "+12.5% vs last period",
+          value: "Updated 5m ago",
+          textColor: "text-green-600"
+        }
+      ]
+    },
+    {
+      title: "Safety Incidents",
+      data: [
+        { label: "LTI", value: "2", textColor: "text-red-600" },
+        { label: "Recordable", value: "5", textColor: "text-yellow-600" },
+        { label: "Near Miss", value: "12", textColor: "text-blue-600" }
+      ]
+    }
+  ];
 
-    const equipmentOptions = ["machine1", "machine2", "machine3", "equip2"];
+  const equipmentOptions = ["machine1", "machine2", "machine3", "equip2"];
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Header */}
@@ -47,21 +54,20 @@ const MineOpsDashboard = () => {
           <span className="text-gray-600">Copper Mountain Mine, BC</span>
         </div>
         <div className="flex items-center space-x-4">
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="select days" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>days</SelectLabel>
-                <SelectItem value="7">last 7days</SelectItem>
-                <SelectItem value="10">last 10 days</SelectItem>
-                <SelectItem value="20">last 20 dyas</SelectItem>
-                <SelectItem value="30">month</SelectItem>
-                <SelectItem value="60">two moths</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <CustomSelect
+            options={[
+              { value: "7", label: "Last 7 days" },
+              { value: "10", label: "Last 10 days" },
+              { value: "20", label: "Last 20 days" },
+              { value: "30", label: "Last month" },
+              { value: "60", label: "Last two months" }
+            ]}
+            placeholder="Select days"
+            onChange={(value) => {
+              setSelectedDays(value);
+              console.log("Selected Days:", value);
+            }}
+          />
         </div>
       </div>
 
@@ -126,20 +132,19 @@ const MineOpsDashboard = () => {
             <CardTitle>Equipment Utilization</CardTitle>
           </CardHeader>
           <CardContent className="flex-1 flex flex-col justify-between">
-            <Select>
-              <SelectTrigger className="w-full md:w-[180px]">
-                <SelectValue placeholder="Select equipment" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Equipments</SelectLabel>
-                  <SelectItem value="machine1">Machine 1</SelectItem>
-                  <SelectItem value="machine2">Machine 2</SelectItem>
-                  <SelectItem value="machine3">Machine 3</SelectItem>
-                  <SelectItem value="equip1">Equip 2</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <CustomSelect
+              options={[
+                { value: "machine1", label: "Machine 1" },
+                { value: "machine2", label: "Machine 2" },
+                { value: "machine3", label: "Machine 3" },
+                { value: "equip2", label: "Equip 2" }
+              ]}
+              placeholder="Select equipment"
+              onChange={(value) => {
+                setSelectedEquipment(value);
+                console.log("Selected Equipment:", value);
+              }}
+            />
 
             {/* Placeholder */}
             <div className="h-24 bg-gray-200 rounded-md mt-2"></div>
@@ -318,9 +323,7 @@ const MineOpsDashboard = () => {
               { label: "Noise Level", value: "72 dB" }
             ].map((env, index) => (
               <div>
-                <div
-                  key={index}
-                  className="flex justify-between p-1">
+                <div key={index} className="flex justify-between p-1">
                   <span>{env.label}</span>
                   <span className={env.color}>{env.value}</span>
                 </div>

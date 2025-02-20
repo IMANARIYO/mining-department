@@ -25,7 +25,8 @@ import {
   AtSign,
   FlaskConical,
   Pickaxe,
-  UserCog
+  UserCog,
+  Image
 } from "lucide-react";
 
 // Sidebar Menu Items
@@ -35,10 +36,12 @@ const items = [
   { title: "Tagging", url: "/dashboard/tagging", icon: AtSign },
   { title: "Notifications", url: "#", icon: Bell },
   { title: "Lab", url: "/dashboard/lab", icon: FlaskConical },
+  { title: "Lab dataHub", url: "/dashboard/lab/datahub", icon: FlaskConical },
   { title: "RFD", url: "/dashboard/settings", icon: FileText },
   { title: "Reports", url: "/dashboard/reports", icon: ClipboardList },
   { title: "MineOps", url: "/dashboard/mineops", icon: Pickaxe },
-  { title: "MineManager", url: "/dashboard/manager", icon: UserCog }
+  { title: "MineManager", url: "/dashboard/manager", icon: UserCog },
+  { title: "blasting", url: "/dashboard/blasting", icon:Image}
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -50,7 +53,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar
       collapsible="icon"
       {...props}
-      className="bg-[#111827] text-gray-900 shadow-lg h-screen">
+      className="bg-[#111827] text-gray-900 shadow-lg h-screen  flex flex-col justify-between items-center">
       <SidebarContent className="relative top-0">
         <SidebarGroupContent>
           {/* Logo Section */}
@@ -69,10 +72,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenu>
             {items.map((item) => (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild className="">
                   <Link
                     href={item.url}
-                    className={`flex items-center px-4 py-3 rounded-md transition-all duration-200  
+                    className={`flex  justify-start items-start px-4 py-3 rounded-md transition-all duration-200  
                       ${
                         activeItem === item.title
                           ? "bg-[#4F46E5] text-white shadow-md"

@@ -8,12 +8,21 @@ import { User } from "lucide-react";
 // Importing the DatePickerWithRange component
 import { DateRange } from "react-day-picker"; // Ensure the correct import for DateRange
 import { DatePickerWithRange } from "@/components/dateRangePicker";
-
+import CustomSelect from "@/components/CustomSelect";
 const MineManagerDashboard = () => {
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: new Date("2025-01-01"),
     to: new Date("2025-12-31")
   });
+  
+  
+
+
+   // State to store selected values
+   const [selectedDepartment, setSelectedDepartment] = useState("");
+   const [selectedDataType, setSelectedDataType] = useState("");
+   const [selectedSite, setSelectedSite] = useState("");
+
 
   const [requests] = useState([
     {
@@ -35,7 +44,11 @@ const MineManagerDashboard = () => {
   const handleDateRangeChange = (newDateRange: DateRange | undefined) => {
     setDateRange(newDateRange); // Update the date range in the parent state
   };
-
+ const handleSubmit = () => {
+   console.log("Selected Department:", selectedDepartment);
+   console.log("Selected Data Type:", selectedDataType);
+   console.log("Selected Site/Tunnel:", selectedSite);
+ };
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
@@ -61,14 +74,14 @@ const MineManagerDashboard = () => {
               : "Pick a date range"}
             {dateRange?.to && dateRange.to.toLocaleDateString()}
           </span> */}
-        
-              <DatePickerWithRange onDateChange={handleDateRangeChange} />
-            
+
+          <DatePickerWithRange onDateChange={handleDateRangeChange} />
 
           <User className="w-6 h-6" />
         </div>
       </div>
 
+      {/* New Data Request Section */}
       {/* New Data Request Section */}
       <Card>
         <CardHeader>
@@ -76,25 +89,38 @@ const MineManagerDashboard = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-3 gap-4">
-            <Select>
-              <option value="">Select Department</option>
-              <option value="site">Site Management</option>
-              <option value="tunnel">Tunnel Operations</option>
-            </Select>
-            <Select>
-              <option value="">Select Data Type</option>
-              <option value="production">Production Data</option>
-              <option value="safety">Safety Reports</option>
-            </Select>
-            <Select>
-              <option value="">Select Site/Tunnel</option>
-              <option value="tunnel1">Tunnel 1</option>
-              <option value="tunnel2">Tunnel 2</option>
-              <option value="tunnel3">Tunnel 3</option>
-            </Select>
+            <CustomSelect
+              options={[
+                { label: "Site Management", value: "site" },
+                { label: "Tunnel Operations", value: "tunnel" }
+              ]}
+              placeholder="Select Department"
+              onChange={setSelectedDepartment}
+            />
+
+            <CustomSelect
+              options={[
+                { label: "Production Data", value: "production" },
+                { label: "Safety Reports", value: "safety" }
+              ]}
+              placeholder="Select Data Type"
+              onChange={setSelectedDataType}
+            />
+
+            <CustomSelect
+              options={[
+                { label: "Tunnel 1", value: "tunnel1" },
+                { label: "Tunnel 2", value: "tunnel2" },
+                { label: "Tunnel 3", value: "tunnel3" }
+              ]}
+              placeholder="Select Site/Tunnel"
+              onChange={setSelectedSite}
+            />
           </div>
           <Textarea placeholder="Additional details..." className="w-full" />
-          <Button className="bg-slate-900 text-white hover:bg-slate-800">
+          <Button
+            onClick={handleSubmit}
+            className="bg-slate-900 text-white hover:bg-slate-800">
             Send Request
           </Button>
         </CardContent>
