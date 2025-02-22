@@ -18,35 +18,28 @@ import {
 } from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
+  Users,
   BarChart2,
-  Bell,
+  ListChecks,
   FileText,
-  ClipboardList,
-  AtSign,
-  FlaskConical,
-  Pickaxe,
-  UserCog,
-  Image,
+  Settings,
   ServerCog
 } from "lucide-react";
 
-// Sidebar Menu Items
+// Sidebar Menu Items (Updated)
 const items = [
-  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Metrics", url: "#", icon: BarChart2 },
-  { title: "Tagging", url: "/dashboard/tagging", icon: AtSign },
-  { title: "Notifications", url: "#", icon: Bell },
-  { title: "Lab", url: "/dashboard/lab", icon: FlaskConical },
-  { title: "Lab dataHub", url: "/dashboard/lab/datahub", icon: FlaskConical },
-  { title: "RFD", url: "/dashboard/settings", icon: FileText },
-  { title: "Reports", url: "/dashboard/reports", icon: ClipboardList },
-  { title: "MineOps", url: "/dashboard/mineops", icon: Pickaxe },
-  { title: "MineManager", url: "/dashboard/manager", icon: UserCog },
-  { title: "ItManger", url: "/dashboard/itmanager", icon: ServerCog },
-  { title: "blasting", url: "/dashboard/blasting", icon: Image }
+  { title: "System", url: "/system", icon: LayoutDashboard },
+  { title: "Users & Groups", url: "/system/users", icon: Users },
+  { title: "Performance", url: "/system/performance", icon: BarChart2 },
+  { title: "Audit Logs", url: "/system/audit-logs", icon: ListChecks },
+  { title: "Systems Update", url: "/system/system-update", icon: ServerCog },
+  { title: "Settings", url: "/system/settings", icon: Settings }
 ];
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
+export function SystemManagerSideBar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   const [activeItem, setActiveItem] = useState("Dashboard");
   const sidebar = useSidebar();
   const isCollapsed = sidebar.state; // Sidebar state (collapsed or expanded)
@@ -55,7 +48,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar
       collapsible="icon"
       {...props}
-      className="bg-[#111827] text-gray-900 shadow-lg h-screen  flex flex-col justify-between items-center">
+      className="bg-[#111827] text-gray-900 shadow-lg h-screen flex flex-col justify-between items-center">
       <SidebarContent className="relative top-0">
         <SidebarGroupContent>
           {/* Logo Section */}
@@ -66,7 +59,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="h-12 w-12 rounded-full"
             />
             {isCollapsed === "expanded" && (
-              <span className="text-lg font-bold ml-2">MiningTech</span>
+              <span className="text-lg font-bold ml-2">System Monitor</span>
             )}
           </div>
 
@@ -77,7 +70,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarMenuButton asChild className="">
                   <Link
                     href={item.url}
-                    className={`flex  justify-start items-start px-4 py-3 rounded-md transition-all duration-200  
+                    className={`flex justify-start items-start px-4 py-3 rounded-md transition-all duration-200  
                       ${
                         activeItem === item.title
                           ? "bg-[#4F46E5] text-white shadow-md"

@@ -76,7 +76,7 @@ export const Topbar = () => {
         </div>
 
         <div className="flex items-center space-x-4">
-          <MyDrawer />
+          {/* <MyDrawer /> */}
           <button
             onClick={() => togglePanel("notifications")}
             className="relative">
